@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skin Health Diagnosis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .button-group {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #resetBtn {
+      background-color: #dc3545;
+    }
+
+    #resetBtn:hover {
+      background-color: #a71d2a;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Skin Health Diagnosis</h1>
+    <form id="diagnosisForm">
+      <label for="temperature">Temperature (°C):</label>
+      <input type="number" id="temperature" placeholder="Enter temperature" required>
+
+      <label for="uv">UV Value:</label>
+      <input type="number" id="uv" placeholder="Enter UV value" required>
+
+      <label for="moisture">Moisture Level (%):</label>
+      <input type="number" id="moisture" placeholder="Enter moisture level" required>
+
+      <div class="button-group">
+        <button type="button" id="submitBtn">Diagnose</button>
+        <button type="button" id="resetBtn">Reset</button>
+      </div>
+    </form>
+    <div id="result"></div>
+  </div>
+  <script>
+    document.getElementById("submitBtn").addEventListener("click", function () {
+      const temperature = parseFloat(document.getElementById("temperature").value);
+      const uv = parseFloat(document.getElementById("uv").value);
+      const moisture = parseFloat(document.getElementById("moisture").value);
+      let result = "";
+
+      // Temperature Check
+      if (temperature > 38) {
+        result += `Your temperature value is abnormal. You may have Dermatitis or Cellulitis.<br>`;
+      } else if (temperature < 30) {
+        result += `Your temperature value is abnormal. You may have Eczema or Cold Urticaria.<br>`;
+      }
+
+      // Moisture Level Check
+      if (moisture > 40) {
+        result += `Your moisture value is abnormal. You may have Intertrigo or Cellulitis.<br>`;
+      } else if (moisture < 38) {
+        result += `Your moisture value is abnormal. You may have Eczema or Contact Dermatitis.<br>`;
+      }
+
+      // UV Value Check
+      if (uv > 5) {
+        result += `Your UV value is abnormal. You may have Melanoma or Basal Cell Carcinoma.<br>`;
+      }
+
+      // No Abnormalities
+      if (!result) {
+        result = `All your values are within the normal range. You don't have any skin diseases.`;
+      }
+
+      // Display Result
+      document.getElementById("result").innerHTML = result;
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", function () {
+      // Clear all input fields
+      document.getElementById("temperature").value = "";
+      document.getElementById("uv").value = "";
+      document.getElementById("moisture").value = "";
+
+      // Clear result
+      document.getElementById("result").innerHTML = "";
+    });
+  </script>
+</body>
+</html>
